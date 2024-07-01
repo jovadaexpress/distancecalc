@@ -4,10 +4,16 @@ document.getElementById('distance-form').addEventListener('submit', function(eve
     const start = document.getElementById('start').value;
     const end = document.getElementById('end').value;
 
+    console.log('Starting Point:', start);
+    console.log('Destination:', end);
+
     Promise.all([
         getCoordinates(start),
         getCoordinates(end)
     ]).then(([startCoords, endCoords]) => {
+        console.log('Start Coordinates:', startCoords);
+        console.log('End Coordinates:', endCoords);
+
         const distance = calculateDistance(startCoords, endCoords);
         const price = calculatePrice(distance); // Calculate the price based on the distance
         document.getElementById('result').textContent = `Distance: ${distance.toFixed(2)} km, Price: €${price.toFixed(2)}`;
@@ -18,7 +24,7 @@ document.getElementById('distance-form').addEventListener('submit', function(eve
 });
 
 function getCoordinates(location) {
-    return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`)
+    return fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`)
         .then(response => response.json())
         .then(data => {
             if (data.length === 0) {
@@ -28,6 +34,9 @@ function getCoordinates(location) {
                 lat: parseFloat(data[0].lat),
                 lon: parseFloat(data[0].lon)
             };
+        }).catch(error => {
+            console.error('Error fetching coordinates:', error);
+            throw error;
         });
 }
 
