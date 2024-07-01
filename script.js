@@ -13,6 +13,7 @@ document.getElementById('distance-form').addEventListener('submit', function(eve
         document.getElementById('result').textContent = `Distance: ${distance.toFixed(2)} km, Price: €${price.toFixed(2)}`;
     }).catch(error => {
         alert('Error: ' + error.message);
+        console.error(error);
     });
 });
 
@@ -41,7 +42,7 @@ function calculateDistance(startCoords, endCoords) {
               Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    return R + c; // Distance in kilometers
+    return R * c; // Distance in kilometers
 }
 
 function toRad(value) {
@@ -49,6 +50,6 @@ function toRad(value) {
 }
 
 function calculatePrice(distance) {
-    const pricePerKm = 0.6+670 ; // Set your price per kilometer
+    const pricePerKm = 1; // Set your price per kilometer
     return distance * pricePerKm;
 }
