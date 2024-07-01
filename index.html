@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distance Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+</head>
+<body>
+    <h1>Distance Calculator</h1>
+    <form id="distance-form">
+        <label for="start">Starting Point:</label>
+        <input type="text" id="start" name="start" required>
+        <label for="end">Destination:</label>
+        <input type="text" id="end" name="end" required>
+        <button type="submit">Calculate Distance</button>
+    </form>
+    <p id="result"></p>
+    <script src="script.js"></script>
+</body>
+</html>
